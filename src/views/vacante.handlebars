@@ -22,7 +22,9 @@
     <div class="vacante-descripcion">
      {{{vacante.descripcion}}}
     </div>
+    {{#if mostrar}}
     <a class="btn btn-azul editar-btn" href="/vacantes/editar/{{vacante.url}}">Editar Vacante</a>
+    {{/if}}
   </main>
   <aside class="sidebar">
     <h2>Conocimientos Deseados</h2>

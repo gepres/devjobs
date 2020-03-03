@@ -16,8 +16,8 @@ router.post('/vacantes/nueva',vacantesController.validarVacante,vacantesControll
 router.get('/vacantes/:url',vacantesController.monstrarVacante)
 
 //editar vacante
-router.get('/vacantes/editar/:url',authController.verificarUsuario,vacantesController.formEditarVacante)
-router.post('/vacantes/editar/:url',authController.verificarUsuario,vacantesController.validarVacante,vacantesController.editarVacante)
+router.get('/vacantes/editar/:url',authController.verficarUserVacante,vacantesController.formEditarVacante)
+router.post('/vacantes/editar/:url',authController.verficarUserVacante,vacantesController.validarVacante,vacantesController.editarVacante)
 
 // Eliminar vacantes
 router.delete('/vacantes/eliminar/:id',vacantesController.eliminarVacante)

@@ -14,12 +14,19 @@ module.exports = {
   }),
   // revisar si el usuario esta autentificado o no 
   verificarUsuario: async (req,res,next) => {
-    // revisar el usuario
-    // const userSesion = JSON.stringify(req.user._id);
-    // console.log(req.params.url)
-    // const vacante = await Vacante.findOne({url:req.params.url}).lean()
-    // const userParams = JSON.stringify(vacante.autor)
+    // revisar el usuario  
+      if(req.isAuthenticated()){
+        return next(); // estan autenticados
+      }
+    // redirecionarlo
+    res.redirect('/iniciar-sesion')
+  },
+  verficarUserVacante:async (req,res,next) => {
+        // const userSesion = JSON.stringify(req.user._id);
+    // console.log(vacante.autor)
+    // console.log(req.user._id);
     
+    // const userParams = JSON.stringify(vacante.autor)
 
       // if(userSesion === userParams){
       //   console.log('usuario correcto')
@@ -30,11 +37,10 @@ module.exports = {
       // if(req.isAuthenticated() && userSesion === userParams ){
       //   return next();
       // }
-    
-      if(req.isAuthenticated()){
-        return next(); // estan autenticados
-      }
-    // redirecionarlo
+    const vacante = await Vacante.findOne({url:req.params.url})
+    if(req.isAuthenticated() && vacante.autor == req.user._id.toString()){
+      return next ()
+    }
     res.redirect('/iniciar-sesion')
   },
   mostrarPanel: async (req,res) => {

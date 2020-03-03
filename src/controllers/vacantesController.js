@@ -43,15 +43,27 @@ module.exports = {
 
   },
   monstrarVacante: async (req,res,next) => {
+    const verivaca = await Vacante.findOne({url : req.params.url})
     const vacante = await Vacante.findOne({url : req.params.url}).populate('autor').lean()
-  
+    // console.log(req.user)
+    // console.log(vacante.autor)
+
+
+    if(req.user && verivaca.autor.equals(req.user._id)) {
+      visibily = true
+    }else{
+      visibily = false
+    }
+
+
     // si no hay vacante
     if(!vacante) return next()
 
     res.render('vacante',{
       vacante,
       nombrePagina:vacante.titulo,
-      barra:true
+      barra:true,
+      mostrar: visibily
     })
   },
   formEditarVacante: async (req,res,next)=> {
